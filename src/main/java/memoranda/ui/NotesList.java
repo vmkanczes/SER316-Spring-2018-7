@@ -15,16 +15,16 @@ import javax.swing.ListSelectionModel;
 
 import main.java.memoranda.CurrentNote;
 import main.java.memoranda.CurrentProject;
-import main.java.memoranda.Note;
 import main.java.memoranda.NoteList;
 import main.java.memoranda.NoteListener;
-import main.java.memoranda.Project;
-import main.java.memoranda.ProjectListener;
-import main.java.memoranda.ResourcesList;
-import main.java.memoranda.TaskList;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
+import main.java.memoranda.interfaces.INote;
+import main.java.memoranda.interfaces.IProject;
+import main.java.memoranda.interfaces.IProjectListener;
+import main.java.memoranda.interfaces.IResourcesList;
+import main.java.memoranda.interfaces.ITaskList;
 import main.java.memoranda.util.Configuration;
 
 /*$Id: NotesList.java,v 1.9 2005/05/05 16:19:16 ivanrise Exp $*/
@@ -54,13 +54,13 @@ public class NotesList extends JList {
         });
 		
         CurrentNote.addNoteListener(new NoteListener() {
-            public void noteChange(Note n, boolean toSaveCurrentNote) {
+            public void noteChange(INote n, boolean toSaveCurrentNote) {
                 updateUI();
             }
         });
 
-        CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
+        CurrentProject.addProjectListener(new IProjectListener() {
+            public void projectChange(IProject p, NoteList nl, ITaskList tl, IResourcesList rl) {
             }
             public void projectWasChanged() {
                 update();
@@ -107,8 +107,8 @@ public class NotesList extends JList {
         updateUI();
     }
 
-    public Note getNote(int index){
-        return (Note) notes.get(index);
+    public INote getNote(int index){
+        return (INote) notes.get(index);
     }
     
     void invertSortOrder() {
@@ -124,7 +124,7 @@ public class NotesListModel extends AbstractListModel {
         }
 
         public Object getElementAt(int i) {
-            Note note = (Note)notes.get(i);
+            INote note = (INote)notes.get(i);
             return note.getDate().getShortDateString() + " " + note.getTitle();
         }
 
@@ -150,7 +150,7 @@ public class NotesListModel extends AbstractListModel {
          String s = value.toString();
          label.setText(s);
          //Note currentNote = CurrentProject.getNoteList().getActiveNote();
-		 Note currentNote = CurrentNote.get();
+		 INote currentNote = CurrentNote.get();
          if (currentNote != null) {
             if (getNote(index).getId().equals(currentNote.getId()))
                 label.setFont(label.getFont().deriveFont(Font.BOLD));

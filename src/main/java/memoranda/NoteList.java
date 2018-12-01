@@ -10,6 +10,7 @@ package main.java.memoranda;
 import java.util.Collection;
 
 import main.java.memoranda.date.CalendarDate;
+import main.java.memoranda.interfaces.INote;
 /**
  * 
  */
@@ -22,14 +23,14 @@ public interface NoteList {
 
     Collection getNotesForPeriod(CalendarDate startDate, CalendarDate endDate);
 
-    Note getNoteForDate(CalendarDate date);
+    INote getNoteForDate(CalendarDate date);
     
-    Note createNoteForDate(CalendarDate date);
+    INote createNoteForDate(CalendarDate date);
     
 //    void removeNoteForDate(CalendarDate date);
 	void removeNote(CalendarDate date, String id);
 
-    Note getActiveNote();
+    INote getActiveNote();
     
     nu.xom.Document getXMLContent();
 
