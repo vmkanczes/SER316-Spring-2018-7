@@ -1,5 +1,7 @@
 Project SER316
 
+# I have read this and I have made a small change.
+
 # fall18project - B
 This is the initial dump for the ser316 fall 2018 project. It is a slightly modified version of the Memoranda project from memoranda.sf.net
 
